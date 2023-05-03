@@ -18,52 +18,9 @@ let enemies = [];
 let isKeyPressed = false;
 const cube_side = 0.5;
 const allowedChars = "abcdefghijklmnopqrstuvwxyz";
+let score = 0;
 
 const loader = new FontLoader();
-
-class LinkedList { //Apparently JS doesn't have built-in implementation of LinkedList.
-	constructor() {
-	  this.nodes = [];
-	}
-  
-	get size() {
-	  return this.nodes.length;
-	}
-  
-	insertAt(index, value) {
-	  const previousNode = this.nodes[index - 1] || null;
-	  const nextNode = this.nodes[index] || null;
-	  const node = { value, next: nextNode };
-  
-	  if (previousNode) previousNode.next = node;
-	  this.nodes.splice(index, 0, node);
-	}
-  
-	insertLast(value) {
-	  this.insertAt(this.size, value);
-	}
-  
-	getAt(index) {
-	  return this.nodes[index];
-	}
-  
-	removeAt(index) {
-	  const previousNode = this.nodes[index - 1];
-	  const nextNode = this.nodes[index + 1] || null;
-  
-	  if (previousNode) previousNode.next = nextNode;
-  
-	  return this.nodes.splice(index, 1);
-	}
-  
-	clear() {
-	  this.nodes = [];
-	}
-  
-	*[Symbol.iterator]() {
-	  yield* this.nodes;
-	}
-  }
 
 class Box extends THREE.Mesh {
 	constructor({ width = cube_side, height = cube_side, depth = cube_side, color, spawn_x = 0, spawn_y = 0, spawn_z = 0, velocity = 0 }) {
@@ -123,16 +80,25 @@ light.position.z = 3;
 
 window.addEventListener('keydown', (event) => {
 	let temp = event.code.charAt(3).toLowerCase();
+	checkChar(temp);
 	isKeyPressed = true;
+	score++;
   })
 
 window.addEventListener('keyup', (event) => {
 	isKeyPressed = false;
   })
 
-function checkChar()
+function checkChar(ch)
 {
-
+	for(let i=0; i<enemies.length; i++)
+	{
+		if(enemies[i].character_associated===ch)
+		{
+			scene.remove(enemies[i]);
+			enemies.splice(i, 1);
+		}
+	}
 }
 
 function animate() {
