@@ -40,11 +40,11 @@ const platform = new Box({
 	width: 5,
 	height: 0.2,
 	depth: 20,
-	color: 0x73bfb8,
+	color: 0xcffcff,
 	spawn_y: -0.25
 });
 
-function textSpawner(spawn_x, qube, char) {
+function textSpawner(spawn_x, qube, char, coll) {
 	loader.load('https://unpkg.com/three@0.77.0/examples/fonts/helvetiker_regular.typeface.json', (font) => {
 
 		const textGeometry = new TextGeometry(char, {
@@ -54,7 +54,7 @@ function textSpawner(spawn_x, qube, char) {
 		});
 
 		const material = new THREE.MeshStandardMaterial({
-			color: 'lime',
+			color: coll,
 			roughness: 0.5
 		});
 
@@ -67,9 +67,10 @@ function textSpawner(spawn_x, qube, char) {
 class EnemyBox1 extends Box {
 	constructor() {
 		let temp = (Math.random() - 0.5) * platform.width / 2;
-		super({ color: 0xe39ec1, spawn_x: temp, spawn_z: -platform.depth / 2, velocity: Math.random() * 0.15 });
+		let tempcol = Math.floor(Math.random()*16777215);
+		super({ color: tempcol, spawn_x: temp, spawn_z: -platform.depth / 2, velocity: Math.random() * 0.15 });
 		this.character_associated = allowedChars.charAt(Math.random() * allowedChars.length);
-		textSpawner(temp, this, this.character_associated);
+		textSpawner(temp, this, this.character_associated, 16777215 - tempcol);
 	}
 }
 
@@ -90,11 +91,16 @@ window.addEventListener('keyup', (event) => {
 })
 
 function checkChar(ch) {
+	let anychar = true;
 	for (let i = 0; i < enemies.length; i++) {
 		if (enemies[i].character_associated === ch) {
 			scene.remove(enemies[i]);
 			enemies.splice(i, 1);
 			score++;
+			anychar = false;
+		}
+		if(anychar){
+			score--;
 		}
 	}
 }
@@ -108,8 +114,8 @@ function animate() {
 		let temp = new EnemyBox1();
 		enemies.push(temp);
 		scene.add(temp);
-		if(enemy_add_rate>50){
-			enemy_add_rate-=2;
+		if(enemy_add_rate>30){
+			enemy_add_rate-=8;
 		}
 	}
 	for (let i = 0; i < enemies.length; i++) {
@@ -153,4 +159,5 @@ function onResize() {
 
 window.addEventListener('resize', onResize); //for responsiveness B)
 
+document.getElementById("highScore").innerHTML=localStorage.getItem("highScore");
 animate();

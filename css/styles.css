@@ -4,6 +4,7 @@
 #displayText{
     position: absolute;
     display: flex;
+    margin-top: 2vh;
     justify-content: center;
     flex-direction: row;
     color: blue;
