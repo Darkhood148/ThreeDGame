@@ -40,7 +40,7 @@ const platform = new Box({
 	width: 5,
 	height: 0.2,
 	depth: 20,
-	color: 0xcffcff,
+	color: 0x9a8873,
 	spawn_y: -0.25
 });
 
@@ -67,10 +67,9 @@ function textSpawner(spawn_x, qube, char, coll) {
 class EnemyBox1 extends Box {
 	constructor() {
 		let temp = (Math.random() - 0.5) * platform.width / 2;
-		let tempcol = Math.floor(Math.random()*16777215);
-		super({ color: tempcol, spawn_x: temp, spawn_z: -platform.depth / 2, velocity: Math.random() * 0.15 });
+		super({ color: 0xa53860, spawn_x: temp, spawn_z: -platform.depth / 2, velocity: Math.random() * 0.15 });
 		this.character_associated = allowedChars.charAt(Math.random() * allowedChars.length);
-		textSpawner(temp, this, this.character_associated, 16777215 - tempcol);
+		textSpawner(temp, this, this.character_associated, 0x6bd425);
 	}
 }
 
