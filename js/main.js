@@ -12,13 +12,14 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 let frames = 0;
-let enemy_add_rate = 100;
+let enemy_add_rate = 200;
 const min_rate = 40;
 let enemies = [];
 let isKeyPressed = false;
 const cube_side = 0.5;
 const allowedChars = "abcdefghijklmnopqrstuvwxyz";
 let score = 0;
+let id = null;
 
 const loader = new FontLoader();
 
@@ -82,7 +83,6 @@ window.addEventListener('keydown', (event) => {
 	let temp = event.code.charAt(3).toLowerCase();
 	checkChar(temp);
 	isKeyPressed = true;
-	score++;
   })
 
 window.addEventListener('keyup', (event) => {
@@ -97,15 +97,15 @@ function checkChar(ch)
 		{
 			scene.remove(enemies[i]);
 			enemies.splice(i, 1);
+			score++;
 		}
 	}
 }
 
 function animate() {
-	requestAnimationFrame(animate);
+	id = requestAnimationFrame(animate);
 	renderer.render(scene, camera);
 	frames++;
-	console.log(isKeyPressed);
 	if (frames % enemy_add_rate == 0) {
 		frames = 0;
 		let temp = new EnemyBox1();
@@ -114,6 +114,26 @@ function animate() {
 	}
 	for (let i = 0; i < enemies.length; i++) {
 		enemies[i].position.z += enemies[i].velocity;
+		document.getElementById("currentScore").innerHTML=score;
+		if(enemies[i].position.z>=5){	//shouldn't it be 0?
+			{
+				console.log("Game Over");
+				cancelAnimationFrame(id);
+				document.getElementById("endGame").style.visibility="visible";
+				document.getElementById("endscore").innerHTML=score;
+				let highScore = null;
+			    try{
+					highScore = localStorage.getItem("highScore");
+					if(score > highScore){
+						localStorage.setItem("highScore", score);
+						highScore = score;
+					}
+				} catch{
+					localStorage.setItem("highScore", score);
+				}
+				document.getElementById("endhighscore").innerHTML = highScore;
+			}
+	}
 	}
 }
 

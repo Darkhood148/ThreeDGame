@@ -6,6 +6,20 @@
 		<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
+		<div id="displayText">
+			<div class="innerContent">
+				Current Score = <span id="currentScore"></span>
+			</div>
+			<div class="innerContent">
+				HighScore = <span id="highScore"></span>
+			</div>
+		</div>
+		<div id="endGame">
+			<h2>GAME OVER!</h2>
+			<h3>Your Score : <span id="endscore"></span></h3>
+			<h3>HighScore : <span id="endhighscore"></span></h3>
+			<button id="butt" onclick="window.location.reload()">Play Again</button>
+		</div>
 		<script defer type="module" src="js/main.js"></script>
 	</body>
 </html>

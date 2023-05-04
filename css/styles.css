@@ -1,3 +1,35 @@
 *{
     margin: 0;
 }
+#displayText{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    color: blue;
+    width: 100vw;
+}
+.innerContent{
+    width: 50%;
+}
+#endGame{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    width: 40vw;
+    height: 30vh;
+    top: 35vh;
+    left: 30vw;
+    background-color: white;
+    opacity: 0.7;
+    visibility: hidden;
+}
+#butt{
+    width: 50%;
+}
+h3, h2{
+    margin-bottom: 2vh;
+}
