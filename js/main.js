@@ -68,7 +68,7 @@ class EnemyBox1 extends Box {
 	constructor() {
 		let temp = (Math.random() - 0.5) * platform.width / 2;
 		super({ color: 0xe39ec1, spawn_x: temp, spawn_z: -platform.depth / 2, velocity: Math.random() * 0.15 });
-		this.character_associated = allowedChars.charAt(Math.random()*allowedChars.length);
+		this.character_associated = allowedChars.charAt(Math.random() * allowedChars.length);
 		textSpawner(temp, this, this.character_associated);
 	}
 }
@@ -83,18 +83,15 @@ window.addEventListener('keydown', (event) => {
 	let temp = event.code.charAt(3).toLowerCase();
 	checkChar(temp);
 	isKeyPressed = true;
-  })
+})
 
 window.addEventListener('keyup', (event) => {
 	isKeyPressed = false;
-  })
+})
 
-function checkChar(ch)
-{
-	for(let i=0; i<enemies.length; i++)
-	{
-		if(enemies[i].character_associated===ch)
-		{
+function checkChar(ch) {
+	for (let i = 0; i < enemies.length; i++) {
+		if (enemies[i].character_associated === ch) {
 			scene.remove(enemies[i]);
 			enemies.splice(i, 1);
 			score++;
@@ -114,27 +111,43 @@ function animate() {
 	}
 	for (let i = 0; i < enemies.length; i++) {
 		enemies[i].position.z += enemies[i].velocity;
-		document.getElementById("currentScore").innerHTML=score;
-		if(enemies[i].position.z>=5){	//shouldn't it be 0?
+		document.getElementById("currentScore").innerHTML = score;
+		if (enemies[i].position.z >= 5) {	//shouldn't it be 0?
 			{
 				console.log("Game Over");
 				cancelAnimationFrame(id);
-				document.getElementById("endGame").style.visibility="visible";
-				document.getElementById("endscore").innerHTML=score;
+				document.getElementById("endGame").style.visibility = "visible";
+				document.getElementById("endscore").innerHTML = score;
 				let highScore = null;
-			    try{
+				try {
 					highScore = localStorage.getItem("highScore");
-					if(score > highScore){
+					if (score > highScore) {
 						localStorage.setItem("highScore", score);
 						highScore = score;
 					}
-				} catch{
+				} catch {
 					localStorage.setItem("highScore", score);
 				}
 				document.getElementById("endhighscore").innerHTML = highScore;
 			}
-	}
+		}
 	}
 }
+function onResize() {
+	console.log("Bruh");
+	// Set the camera's aspect ratio
+	camera.aspect = window.innerWidth / window.innerHeight;
+
+	// update the camera's frustum
+	camera.updateProjectionMatrix();
+
+	// update the size of the renderer AND the canvas
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	// set the pixel ratio (for mobile devices)
+	renderer.setPixelRatio(window.devicePixelRatio);
+}
+
+window.addEventListener('resize', onResize); //for responsiveness B)
 
 animate();
