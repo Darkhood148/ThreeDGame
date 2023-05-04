@@ -108,6 +108,9 @@ function animate() {
 		let temp = new EnemyBox1();
 		enemies.push(temp);
 		scene.add(temp);
+		if(enemy_add_rate>50){
+			enemy_add_rate-=2;
+		}
 	}
 	for (let i = 0; i < enemies.length; i++) {
 		enemies[i].position.z += enemies[i].velocity;
