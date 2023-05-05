@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html>
-	<head lang="en">
-		<meta charset="utf-8">
-		<title>My first three.js app</title>
-		<link rel="stylesheet" href="css/styles.css">
-	</head>
-	<body>
-		<div id="displayText">
-			<div class="innerContent">
-				Current Score = <span id="currentScore"></span>
-			</div>
-			<div class="innerContent">
-				HighScore = <span id="highScore"></span>
-			</div>
+
+<head lang="en">
+	<meta charset="utf-8">
+	<title>Keyboard_Rush</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<audio src="./assets/audio/bgmusic.mp3" id="background_music"></audio>
+	<audio src="./assets/audio/cube_destroyed.wav" id="cube_destroyed_music"></audio>
+	<audio src="./assets/audio/game_over.wav" id="game_over"></audio>
+	<div id="displayText">
+		<div class="innerContent">
+			Current Score = <span id="currentScore"></span>
 		</div>
-		<div id="endGame">
-			<h2>GAME OVER!</h2>
-			<h3>Your Score : <span id="endscore"></span></h3>
-			<h3>HighScore : <span id="endhighscore"></span></h3>
-			<button id="butt" onclick="window.location.reload()">Play Again</button>
+		<div class="innerContent">
+			HighScore = <span id="highScore"></span>
 		</div>
-		<script defer type="module" src="js/main.js"></script>
-	</body>
+	</div>
+	<div id="startGame">
+		<h3>Click anywhere to begin</h3>
+	</div>
+	<div id="endGame">
+		<h2>GAME OVER!</h2>
+		<h3>Your Score : <span id="endscore"></span></h3>
+		<h3>HighScore : <span id="endhighscore"></span></h3>
+		<button id="butt" onclick="window.location.reload()">Play Again</button>
+	</div>
+	<script defer type="module" src="js/main.js"></script>
+</body>
+
 </html>

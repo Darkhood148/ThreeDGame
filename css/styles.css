@@ -1,13 +1,30 @@
-*{
+* {
     margin: 0;
 }
-body{
+
+body {
     background-image: url('../assets/background/AcademicIdealBlacknorwegianelkhound-size_restricted.gif');
     background-size: cover;
     height: 100vh;
-    padding:0;
+    padding: 0;
+    font-family: 'Bruno Ace SC', cursive;
 }
-#displayText{
+
+#startGame {
+    position: absolute;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 30vh;
+    left: 20vw;
+    width: 60vw;
+    height: 40vh;
+    opacity: 0.8;
+    font-size: 5vmin;
+}
+
+#displayText {
     position: absolute;
     display: flex;
     margin-top: 2vh;
@@ -16,10 +33,12 @@ body{
     color: blue;
     width: 100vw;
 }
-.innerContent{
+
+.innerContent {
     width: 50%;
 }
-#endGame{
+
+#endGame {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -34,9 +53,24 @@ body{
     opacity: 0.7;
     visibility: hidden;
 }
-#butt{
-    width: 50%;
+
+#butt {
+    background-color: red;
+    font-weight: bold;
+    color: blue;
+    border-radius: 10%;
+    transition: background-color 0.25s;
+    height: 15%;
+    width: 30%;
+    font-family: 'Bruno Ace SC', cursive;
 }
-h3, h2{
+
+#butt:hover {
+    background-color: blue;
+    color: red;
+}
+
+h3,
+h2 {
     margin-bottom: 2vh;
 }
