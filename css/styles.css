@@ -1,6 +1,12 @@
 *{
     margin: 0;
 }
+body{
+    background-image: url('../assets/background/AcademicIdealBlacknorwegianelkhound-size_restricted.gif');
+    background-size: cover;
+    height: 100vh;
+    padding:0;
+}
 #displayText{
     position: absolute;
     display: flex;
