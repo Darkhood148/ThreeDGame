@@ -27,12 +27,12 @@ function begin() {
   const cdaudio = document.getElementById("cube_destroyed_music");
   let frames = 0;
   let enemy_add_rate = 200;
-  const min_add_rate = 70;
+  const min_add_rate = 80;
   let enemies = [];
   let isKeyPressed = false;
   const cube_side = 0.5;
   let score = 0;
-  const maxVelocity = 0.12
+  const maxVelocity = 0.09;
   let id = null;
 
   scene.add(light);
@@ -147,7 +147,7 @@ function begin() {
       let temp = new EnemyBox1();
       enemies.push(temp);
       scene.add(temp);
-      if (enemy_add_rate > 30) {
+      if (enemy_add_rate > min_add_rate) {
         enemy_add_rate -= 8;
       }
     }
