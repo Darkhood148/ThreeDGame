@@ -3,6 +3,7 @@ import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 
 function begin() {
+  document.getElementById("displayText").style.visibility = "visible";
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -18,19 +19,19 @@ function begin() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
   const light = new THREE.DirectionalLight(0xffffff, 1);
-  const hsdom = document.getElementById("highScore");
-  const sdom = document.getElementById("currentScore");
-  const endsdom = document.getElementById("endscore");
-  const endhsdom = document.getElementById("endhighscore");
+  const highScoreDOMElement = document.getElementById("highScore");
+  const scoreDOMElement = document.getElementById("currentScore");
+  const endScreenScoreDOMElement = document.getElementById("endscore");
+  const endScreenHighscoreDOMElement = document.getElementById("endhighscore");
   const endBox = document.getElementById("endGame");
-  const background_audio = document.getElementById("background_music");
-  const cdaudio = document.getElementById("cube_destroyed_music");
+  const backgroundAudio = document.getElementById("background_music");
+  const cubeDestroyedAudio = document.getElementById("cube_destroyed_music");
   let frames = 0;
-  let enemy_add_rate = 200;
-  const min_add_rate = 80;
+  let enemyAddRate = 200;
+  const minAddRate = 80;
   let enemies = [];
   let isKeyPressed = false;
-  const cube_side = 0.5;
+  const cubeSide = 0.5;
   let score = 0;
   const maxVelocity = 0.09;
   let id = null;
@@ -41,9 +42,9 @@ function begin() {
 
   class Box extends THREE.Mesh {
     constructor({
-      width = cube_side,
-      height = cube_side,
-      depth = cube_side,
+      width = cubeSide,
+      height = cubeSide,
+      depth = cubeSide,
       color,
       spawn_x = 0,
       spawn_y = 0,
@@ -131,7 +132,7 @@ function begin() {
         enemies.splice(i, 1);
         score++;
         anychar = false;
-        cdaudio.play();
+        cubeDestroyedAudio.play();
       }
     }
     if (anychar) {
@@ -142,26 +143,26 @@ function begin() {
   function animate() {
     id = requestAnimationFrame(animate);
     frames++;
-    if (frames % enemy_add_rate == 0) {
+    if (frames % enemyAddRate == 0) {
       frames = 0;
       let temp = new EnemyBox1();
       enemies.push(temp);
       scene.add(temp);
-      if (enemy_add_rate > min_add_rate) {
-        enemy_add_rate -= 8;
+      if (enemyAddRate > minAddRate) {
+        enemyAddRate -= 8;
       }
     }
     for (let i = 0; i < enemies.length; i++) {
       enemies[i].position.z += enemies[i].velocity;
-      sdom.innerHTML = score;
+      scoreDOMElement.innerHTML = score;
       if (enemies[i].position.z >= 5) {
         //shouldn't it be 0?
         {
           console.log("Game Over");
-          background_audio.pause();
+          backgroundAudio.pause();
           cancelAnimationFrame(id);
           endBox.style.visibility = "visible";
-          endsdom.innerHTML = score;
+          endScreenScoreDOMElement.innerHTML = score;
           let highScore = null;
           try {
             highScore = localStorage.getItem("highScore");
@@ -172,7 +173,7 @@ function begin() {
           } catch {
             localStorage.setItem("highScore", score);
           }
-          endhsdom.innerHTML = highScore;
+          endScreenHighscoreDOMElement.innerHTML = highScore;
         }
       }
     }
@@ -194,15 +195,15 @@ function begin() {
 
   window.addEventListener("resize", onResize); //for responsiveness B)
 
-  hsdom.innerHTML = localStorage.getItem("highScore");
-  background_audio.loop = true;
-  background_audio.play();
+  highScoreDOMElement.innerHTML = localStorage.getItem("highScore");
+  backgroundAudio.loop = true;
+  backgroundAudio.play();
   animate();
 }
 
 window.addEventListener("mousedown", startFunction);
 
-function startFunction(){
+function startFunction() {
   document.getElementById("startGame").style.visibility = "hidden";
   window.removeEventListener("mousedown", startFunction);
   begin();

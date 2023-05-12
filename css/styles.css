@@ -16,9 +16,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     top: 30vh;
-    left: 20vw;
-    width: 60vw;
+    left: 10vw;
+    width: 80vw;
     height: 40vh;
     opacity: 0.8;
     font-size: 5vmin;
@@ -32,6 +33,7 @@ body {
     flex-direction: row;
     color: blue;
     width: 100vw;
+    visibility: hidden;
 }
 
 .innerContent {
@@ -71,6 +73,8 @@ body {
 }
 
 h3,
-h2 {
+h2,
+h4,
+h5 {
     margin-bottom: 2vh;
 }
